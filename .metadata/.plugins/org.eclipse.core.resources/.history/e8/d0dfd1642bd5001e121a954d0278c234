@@ -1,0 +1,9 @@
+package com.knorex;
+
+public class Vechicle {
+private String registrationNumber;
+private String colour;
+private String type;
+
+
+}

@@ -1,0 +1,49 @@
+package com.knorex.model;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ParkingLot {
+	private int totalFloors;
+    private Map<Integer, Floor> floors;
+    private CostStrategy costStrategy;
+
+    public ParkingLot(int totalFloors, Map<String, Integer> capacityMap) {
+        this.totalFloors = totalFloors;
+        this.floors = new HashMap<>();
+        this.costStrategy = new CostStrategy();
+
+        for (int i = 1; i <= totalFloors; i++) {
+            floors.put(i, new Floor(i, capacityMap));
+        }
+        
+        
+    
+
+}
+    
+
+	public int getTotalFloors() {
+		return totalFloors;
+	}
+
+	public void setTotalFloors(int totalFloors) {
+		this.totalFloors = totalFloors;
+	}
+
+	public Map<Integer, Floor> getFloors() {
+		return floors;
+	}
+
+	public void setFloors(Map<Integer, Floor> floors) {
+		this.floors = floors;
+	}
+
+	public CostStrategy getCostStrategy() {
+		return costStrategy;
+	}
+
+	public void setCostStrategy(CostStrategy costStrategy) {
+		this.costStrategy = costStrategy;
+	}
+}

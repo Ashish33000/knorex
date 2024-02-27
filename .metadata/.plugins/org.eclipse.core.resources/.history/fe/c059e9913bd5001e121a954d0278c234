@@ -1,0 +1,6 @@
+package com.knorex.model;
+
+public interface CostStrategy {
+    double calculateCost(int hours);
+}
+

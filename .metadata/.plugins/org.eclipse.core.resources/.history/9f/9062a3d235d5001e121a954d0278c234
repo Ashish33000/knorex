@@ -1,0 +1,56 @@
+package com.knorex.util;
+
+import java.util.Map;
+
+import com.knorex.model.Floor;
+import com.knorex.model.Vehicle;
+import com.knorex.model.VehicleSpace;
+
+public class ParkingServiceImpl implements ParkingService {
+
+	@Override
+	public void addVehicle(String registrationNumber, String color, String type,Map<Integer, Floor> floors) {
+		// TODO Auto-generated method stub
+		for (Floor floor : floors.values()) {
+            Map<String, VehicleSpace> vehicleSpaces = floor.getVehicleSpaces();
+            for (VehicleSpace space : vehicleSpaces.values()) {
+                if (space.isAvailblity() && space.getVechleType().equals(type)) {
+                    Vehicle vehicle = new Vehicle(registrationNumber, color, type);
+                    space.parkVehicle(vehicle);
+                    System.out.println("Vehicle parked successfully. Token ID: " + space.getVechleType() + space.getSpaceNumber());
+                    return;
+                }
+            }
+        }
+        System.out.println("Error: Parking lot is full.");
+		
+	}
+
+	@Override
+	public void removeVehicle(String token, String timestamp,String type,Map<Integer, Floor> floors) {
+		// TODO Auto-generated method stub
+		 int spaceNumber = Integer.parseInt(token.substring(1));
+	        String vehicleType = token.substring(0, 1);
+
+	        if (floors.containsKey(spaceNumber) && floors.get(spaceNumber).getVehicleSpaces().containsKey(vehicleType + spaceNumber)) {
+	            VehicleSpace space = floors.get(spaceNumber).getVehicleSpaces().get(vehicleType + spaceNumber);
+	            if (!space.isAvailblity()) {
+	                space.removeVehicle();
+	                int cost = costStrategy.getCost(vehicleType);
+	                System.out.println("Vehicle removed successfully. Total amount: " + calculateTotalAmount(timestamp, cost));
+	            } else {
+	                System.out.println("Error: Vehicle not found at the specified space.");
+	            }
+	        } else {
+	            System.out.println("Error: Invalid token.");
+	        }
+		
+	}
+
+	@Override
+	public double calculateTotalAmount(String timestamp, int cost) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

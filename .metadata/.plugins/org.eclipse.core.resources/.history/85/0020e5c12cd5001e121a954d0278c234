@@ -1,0 +1,12 @@
+package com.knorex;
+
+public class VehicleSpace {
+	
+	private int spaceNumber;
+	private boolean availblity;
+	private String vechleType;
+	private Vehicle parkedVehicle;
+	
+	
+
+}

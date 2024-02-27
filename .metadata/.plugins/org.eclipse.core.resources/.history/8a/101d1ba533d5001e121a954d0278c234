@@ -1,0 +1,5 @@
+package com.knorex.util;
+
+public class ParkingServiceImpl {
+
+}

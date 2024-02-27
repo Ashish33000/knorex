@@ -1,0 +1,40 @@
+package com.knorex;
+
+public class VehicleSpace {
+	
+	private int spaceNumber;
+	private boolean availblity;
+	private String vechleType;
+	private Vehicle parkedVehicle;
+	public int getSpaceNumber() {
+		return spaceNumber;
+	}
+	public void setSpaceNumber(int spaceNumber) {
+		this.spaceNumber = spaceNumber;
+	}
+	public boolean isAvailblity() {
+		return availblity;
+	}
+	public void setAvailblity(boolean availblity) {
+		this.availblity = availblity;
+	}
+	public String getVechleType() {
+		return vechleType;
+	}
+	public void setVechleType(String vechleType) {
+		this.vechleType = vechleType;
+	}
+	public Vehicle getParkedVehicle() {
+		return parkedVehicle;
+	}
+	public void setParkedVehicle(Vehicle parkedVehicle) {
+		this.parkedVehicle = parkedVehicle;
+	}
+	public VehicleSpace() {
+		super();
+		// TODO Auto-generated constructor stub
+	}
+	
+	
+
+}

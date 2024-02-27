@@ -1,0 +1,22 @@
+package com.knorex.model;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Floor {
+	 private int floorNumber;
+	 private List<VehicleSpace> vehicleSpaces;
+
+	    public Floor(int floorNumber, int capacityPerVehicleType) {
+	        this.floorNumber = floorNumber;
+	        this.vehicleSpaces = new ArrayList<>();
+	        initializeVehicleSpaces(capacityPerVehicleType);
+	    }
+
+	    private void initializeVehicleSpaces(int capacityPerVehicleType) {
+	        for (int i = 1; i <= capacityPerVehicleType; i++) {
+	            vehicleSpaces.add(new VehicleSpace(i, VehicleType.CAR));
+	        }
+	    }
+
+}

@@ -1,0 +1,8 @@
+package com.knorex.util;
+
+public interface ParkingService {
+	public void addVehicle(String registrationNumber, String color, String type);
+	public void removeVehicle(String token, String timestamp);
+    public double calculateTotalAmount(String timestamp, int cost);
+
+}

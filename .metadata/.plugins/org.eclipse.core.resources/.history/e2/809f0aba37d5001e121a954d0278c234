@@ -1,0 +1,15 @@
+package com.knorex.util;
+
+import java.util.Map;
+
+import com.knorex.model.CostStrategy;
+import com.knorex.model.Floor;
+import com.knorex.model.Vehicle;
+import com.knorex.model.VehicleSpace;
+
+public class ParkingServiceImpl implements ParkingService {
+
+
+
+	
+}

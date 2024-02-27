@@ -1,0 +1,13 @@
+package com.knorex.util;
+
+import java.util.Map;
+
+import com.knorex.model.CostStrategy;
+import com.knorex.model.Floor;
+
+public interface ParkingService {
+	public void addVehicle(String registrationNumber, String color, String type,Map<Integer, Floor> floors);
+	public void removeVehicle(String token, String timestamp,String type,Map<Integer, Floor> floors,CostStrategy costStrategy);
+    public double calculateTotalAmount(String timestamp, int cost,Map<Integer, Floor> floors,int floorNumber);
+
+}

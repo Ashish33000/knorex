@@ -1,0 +1,19 @@
+package com.knorex.model;
+
+public class Vehicle {
+    private String registrationNumber;
+    private String color;
+    private VehicleType vehicleType;
+    private int hoursParked;
+
+    public Vehicle(String registrationNumber, String color, VehicleType vehicleType) {
+        this.registrationNumber = registrationNumber;
+        this.color = color;
+        this.vehicleType = vehicleType;
+    }
+
+    
+
+    
+}
+

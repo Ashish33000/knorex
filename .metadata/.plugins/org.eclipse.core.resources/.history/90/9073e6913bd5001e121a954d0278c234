@@ -1,0 +1,65 @@
+package com.knorex.model;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ParkingLot {
+    private int totalFloors;
+    private int capacityPerVehicleType;
+    private Map<String, Vehicle> parkedVehicles;
+    private Floor[] floors;
+    private CostStrategy costStrategy;
+
+    public ParkingLot(int totalFloors, int capacityPerVehicleType) {
+        this.totalFloors = totalFloors;
+        this.capacityPerVehicleType = capacityPerVehicleType;
+        this.parkedVehicles = new HashMap<>();
+        this.floors = new Floor[totalFloors];
+        initializeFloors();
+        this.costStrategy = new FlatCostStrategy();
+    }
+
+    private void initializeFloors() {
+        for (int i = 0; i < totalFloors; i++) {
+            floors[i] = new Floor(i + 1, capacityPerVehicleType);
+        }
+    }
+
+    public void parkVehicle(String registrationNumber, String color, VehicleType vehicleType) {
+        for (Floor floor : floors) {
+            if (floor.checkAvailability(vehicleType)) {
+                VehicleSpace availableSpace = floor.getAvailableSpace(vehicleType);
+                Vehicle vehicle = new Vehicle(registrationNumber, color, vehicleType);
+                parkedVehicles.put(registrationNumber, vehicle);
+                availableSpace.setAvailability(false);
+                System.out.println("Vehicle parked successfully on Floor " + floor.getFloorNumber() +
+                        ", Space " + availableSpace.getSpaceNumber());
+                return;
+            }
+        }
+        System.out.println("Parking lot is full. Cannot park the vehicle.");
+    }
+
+    public void removeVehicle(String registrationNumber, int hoursParked) {
+        if (parkedVehicles.containsKey(registrationNumber)) {
+            Vehicle vehicle = parkedVehicles.get(registrationNumber);
+            parkedVehicles.remove(registrationNumber);
+
+       
+            double cost = costStrategy.calculateCost(hoursParked);
+            System.out.println("Vehicle removed successfully. Total cost: $" + cost);
+        } else {
+            System.out.println("Vehicle with registration number " + registrationNumber + " not found.");
+        }
+    }
+
+    public boolean checkAvailability(int floorNumber, VehicleType vehicleType) {
+        if (floorNumber > 0 && floorNumber <= totalFloors) {
+            return floors[floorNumber - 1].checkAvailability(vehicleType);
+        }
+        return false;
+    }
+
+  
+}
+

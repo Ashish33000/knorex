@@ -1,0 +1,11 @@
+package com.knorex.model;
+
+import java.util.Map;
+
+public class Floor {
+	private int floorNumber;
+	private Map<String, Integer> capacityMap;
+    private Map<String, VehicleSpace> vehicleSpaces;
+    
+
+}

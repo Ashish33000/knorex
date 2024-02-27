@@ -1,0 +1,24 @@
+package com.knorex.model;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class ParkingLot {
+	private int totalFloors;
+    private Map<Integer, Floor> floors;
+    private CostStrategy costStrategy;
+
+    public ParkingLot(int totalFloors, Map<String, Integer> capacityMap) {
+        this.totalFloors = totalFloors;
+        this.floors = new HashMap<>();
+        this.costStrategy = new CostStrategy();
+
+        for (int i = 1; i <= totalFloors; i++) {
+            floors.put(i, new Floor(i, capacityMap));
+        }
+        
+        
+    
+
+}
+}

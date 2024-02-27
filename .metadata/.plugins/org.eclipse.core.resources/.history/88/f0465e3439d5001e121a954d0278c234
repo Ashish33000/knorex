@@ -1,0 +1,104 @@
+package com.knorex.util;
+
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Map;
+import java.util.concurrent.TimeUnit;
+
+import com.knorex.model.CostStrategy;
+import com.knorex.model.Floor;
+import com.knorex.model.ParkingLot;
+import com.knorex.model.Vehicle;
+import com.knorex.model.VehicleSpace;
+
+public class ParkingService {
+	 private ParkingLot parkingLot;
+
+	    public ParkingService(ParkingLot parkingLot) {
+	        this.parkingLot= parkingLot;
+	    }
+
+	    public void addVehicle(String registrationNumber, String color, String type) {
+	        for (Floor floor : parkingLot.getFloors().values()) {
+	            Map<Integer, VehicleSpace> vehicleSpaces = floor.getVehicleSpaces();
+	            for (VehicleSpace space : vehicleSpaces.values()) {
+	                if (space.isAvailable() && space.getVehicleType().equals(type)) {
+	                    Vehicle vehicle = new Vehicle(registrationNumber, color, type);
+	                    space.parkVehicle(vehicle);
+	                    System.out.println("Vehicle parked successfully. Token ID: " + floor.getFloorNumber() + "-" + space.getSpaceNumber());
+	                    return;
+	                }
+	            }
+	        }
+	        System.out.println("Error: Parking lot is full.");
+	    }
+
+	    public void removeVehicle(String token) {
+	        String[] tokens = token.split("-");
+	        int floorNumber = Integer.parseInt(tokens[0]);
+	        int spaceNumber = Integer.parseInt(tokens[1]);
+
+	        if (parkingLotModel.getFloors().containsKey(floorNumber) &&
+	                parkingLotModel.getFloors().get(floorNumber).getVehicleSpaces().containsKey(spaceNumber)) {
+	            VehicleSpace space = parkingLotModel.getFloors().get(floorNumber).getVehicleSpaces().get(spaceNumber);
+	            if (!space.isAvailable()) {
+	                space.removeVehicle();
+	                int cost = CostStrategy.getCost(space.getVehicleType());
+	                System.out.println("Vehicle removed successfully. Total amount: " +
+	                        calculateTotalAmount(cost, space.getParkedVehicle()));
+	            } else {
+	                System.out.println("Error: Vehicle not found at the specified space.");
+	            }
+	        } else {
+	            System.out.println("Error: Invalid token.");
+	        }
+	    }
+
+	    private double calculateTotalAmount(int cost, Vehicle vehicle) {
+	        // Assuming the time format is "yyyy-MM-dd HH:mm:ss"
+	        String startTime = "2024-02-27 14:30:00"; // You can replace this with the actual start time
+	        String endTime = getCurrentTime(); // Assuming the end time is the current time
+
+	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+	        try {
+	            Date start = dateFormat.parse(startTime);
+	            Date end = dateFormat.parse(endTime);
+
+	            long durationMillis = end.getTime() - start.getTime();
+	            long durationHours = TimeUnit.MILLISECONDS.toHours(durationMillis);
+
+	            // Assuming an hourly rate
+	            double hourlyRate = 1.5; // Change this based on your actual rate
+
+	            return cost * durationHours * hourlyRate;
+	        } catch (ParseException e) {
+	            System.out.println("Error parsing dates.");
+	            return 0.0;
+	        }
+	    }
+
+	    private String getCurrentTime() {
+	        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	        return dateFormat.format(new Date());
+	    }
+
+	    public void checkAvailability(int floorNumber, String vehicleType) {
+	        if (parkingLotModel.getFloors().containsKey(floorNumber)) {
+	            int availableSpaces = 0;
+	            int totalSpaces = 0;
+	            for (VehicleSpace space : parkingLotModel.getFloors().get(floorNumber).getVehicleSpaces().values()) {
+	                if (space.isAvailable() && space.getVehicleType().equals(vehicleType)) {
+	                    availableSpaces++;
+	                }
+	                if (space.getVehicleType().equals(vehicleType)) {
+	                    totalSpaces++;
+	                }
+	            }
+	            System.out.println("Available spaces for " + vehicleType + " on floor " + floorNumber + ": " + availableSpaces + "/" + totalSpaces);
+	        } else {
+	            System.out.println("Error: Invalid floor number.");
+	        }
+	    }
+}

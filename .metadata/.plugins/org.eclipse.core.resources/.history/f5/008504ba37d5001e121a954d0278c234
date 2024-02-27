@@ -1,0 +1,43 @@
+package com.knorex.util;
+
+import java.util.Map;
+
+import com.knorex.model.CostStrategy;
+import com.knorex.model.Floor;
+import com.knorex.model.Vehicle;
+import com.knorex.model.VehicleSpace;
+
+public class ParkingServiceImpl implements ParkingService {
+
+	@Override
+	public void addVehicle(String registrationNumber, String color, String type,Map<Integer, Floor> floors) {
+		// TODO Auto-generated method stub
+		for (Floor floor : floors.values()) {
+            Map<String, VehicleSpace> vehicleSpaces = floor.getVehicleSpaces();
+            for (VehicleSpace space : vehicleSpaces.values()) {
+                if (space.isAvailblity() && space.getVechleType().equals(type)) {
+                    Vehicle vehicle = new Vehicle(registrationNumber, color, type);
+                    space.parkVehicle(vehicle);
+                    System.out.println("Vehicle parked successfully. Token ID: " + space.getVechleType() + space.getSpaceNumber());
+                    return;
+                }
+            }
+        }
+        System.out.println("Error: Parking lot is full.");
+		
+	}
+
+	@Override
+	public void removeVehicle(String token, String timestamp, String type, Map<Integer, Floor> floors,
+			CostStrategy costStrategy) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public double calculateTotalAmount(String timestamp, int cost, Map<Integer, Floor> floors, int floorNumber) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+}

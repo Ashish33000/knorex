@@ -1,0 +1,20 @@
+package com.knorex.model;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class CostStrategy {
+	private final Map<String, Integer> costMap;
+
+    public CostStrategy() {
+        costMap = new HashMap<>();
+        costMap.put("Bike", 10);
+        costMap.put("Car", 20);
+        costMap.put("Bus", 30);
+    }
+
+    public int getCost(String vehicleType) {
+        return costMap.getOrDefault(vehicleType, 0);
+    }
+
+}

@@ -1,0 +1,27 @@
+package com.knorex.model;
+
+import java.util.HashMap;
+import java.util.Map;
+
+public class Floor {
+	private int floorNumber;
+	private Map<String, Integer> capacityMap;
+    private Map<String, VehicleSpace> vehicleSpaces;
+    
+	public Floor(int floorNumber, Map<String, Integer> capacityMap) {
+		
+		this.floorNumber = floorNumber;
+		this.capacityMap = capacityMap;
+		this.vehicleSpaces = new HashMap<>();
+		
+		for(Map.Entry<String, Integer> entry:capacityMap.entrySet()) {
+			String vehicleType=entry.getKey();
+			int capacity=entry.getValue();
+			for(int i=1;i<=capacity;i++) {
+				  vehicleSpaces.put(vehicleType + i, new VehicleSpace(i, vehicleType));
+			}
+		}
+	}
+    
+
+}

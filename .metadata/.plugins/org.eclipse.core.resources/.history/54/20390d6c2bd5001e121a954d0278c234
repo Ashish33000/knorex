@@ -1,0 +1,15 @@
+package com.knorex;
+
+public class Vechicle {
+private String registrationNumber;
+private String colour;
+private String type;
+public Vechicle(String registrationNumber, String colour, String type) {
+	super();
+	this.registrationNumber = registrationNumber;
+	this.colour = colour;
+	this.type = type;
+}
+
+
+}

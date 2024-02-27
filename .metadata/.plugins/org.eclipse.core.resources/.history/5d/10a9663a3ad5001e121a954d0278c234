@@ -1,0 +1,14 @@
+package com.knorex.model;
+
+public class VehicleSpace {
+	
+	private int spaceNumber;
+    private boolean availability;
+    private VehicleType vehicleType;
+
+    public VehicleSpace(int spaceNumber, VehicleType vehicleType) {
+        this.spaceNumber = spaceNumber;
+        this.availability = true;
+        this.vehicleType = vehicleType;
+    }
+}
